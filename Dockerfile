@@ -6,5 +6,6 @@ RUN apk --no-cache add build-base && make
 FROM alpine:3.16
 WORKDIR /syncd
 COPY --from=build /usr/local/src/output /syncd
+RUN apk add --no-cache bash
 EXPOSE 8878
 CMD [ "/syncd/bin/syncd" ]
