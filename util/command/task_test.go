@@ -5,18 +5,18 @@
 package command
 
 import (
-    "testing"
+	"testing"
 )
 
 func TestTaskRun(t *testing.T) {
-    cmds := []string{
-        "echo 'syncd'",
-        "whoami",
-        "date",
-    }
-    task := TaskNew(cmds, 10)
-    task.Run()
-    if err := task.GetError(); err != nil {
-        t.Errorf("cmd task running error: %s", err.Error())
-    }
+	cmds := []string{
+		"echo 'syncd'",
+		"whoami",
+		"date",
+	}
+	task := NewTask(cmds, 10)
+	task.Run()
+	if err := task.GetError(); err != nil {
+		t.Errorf("cmd task running error: %s", err.Error())
+	}
 }
