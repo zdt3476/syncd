@@ -149,7 +149,7 @@ CREATE TABLE `syd_user` (
 
 INSERT INTO `syd_user` (`id`, `role_id`, `username`, `password`, `salt`, `truename`, `mobile`, `email`, `status`, `last_login_time`, `last_login_ip`, `ctime`)
 VALUES
-	(1,1,'syncd','c2a8d572366f7cf7bfc8b485f41bfd1b','u0EMxuE6qh','Syncd','','',1,0,'',0);
+	(1,1,'syncd','e1f2d10b87bef8af3708d88bfccc55f5','0f883e','Syncd','','',1,0,'',0);
 
 DROP TABLE IF EXISTS `syd_user_role`;
 
