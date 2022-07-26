@@ -73,7 +73,9 @@ func (b *Build) initBuildTask() {
 	cmds = append(cmds, []string{
 		"echo \"Now is\" `date`",
 		"echo \"Run user is\" `whoami`",
-		fmt.Sprintf("rm -f %s", b.packFile),
+		"git log --pretty=oneline --abbrev-commit | head -n 1",
+		"echo \"Show current directory\" `pwd`",
+		// fmt.Sprintf("rm -f %s", b.packFile),
 		fmt.Sprintf("/bin/bash -c %s", b.scriptFile),
 		fmt.Sprintf("rm -f %s", b.scriptFile),
 		fmt.Sprintf("rm -fr %s", b.local),
