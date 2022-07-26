@@ -333,7 +333,7 @@ func DeployStart(c *gin.Context) {
 			PostCmd:       proj.AfterDeployCmd,
 			DeployPath:    proj.DeployPath,
 			DeployTmpPath: syncd.App.RemoteSpace,
-			PackFile:      build.Tar,
+			// PackFile:      build.Tar,
 		}
 		for _, srv := range gsrv {
 			dep.AddServer(srv.ID, srv.Ip, srv.SSHPort)

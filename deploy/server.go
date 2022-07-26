@@ -15,14 +15,14 @@ const (
 )
 
 type Server struct {
-	ID            int
-	Addr          string
-	User          string
-	Port          int
-	PreCmd        string
-	PostCmd       string
-	Key           string
-	PackFile      string
+	ID      int
+	Addr    string
+	User    string
+	Port    int
+	PreCmd  string
+	PostCmd string
+	Key     string
+	// PackFile      string
 	DeployTmpPath string
 	DeployPath    string
 	task          *command.Task
@@ -82,9 +82,9 @@ func (srv *Server) deployCmd() []string {
 		// useScpPort = fmt.Sprintf(" -P %d", srv.Port)
 	}
 	var cmds []string
-	if srv.PackFile == "" {
-		cmds = append(cmds, "echo 'packfile empty' && exit 1")
-	}
+	// if srv.PackFile == "" {
+	// 	cmds = append(cmds, "echo 'packfile empty' && exit 1")
+	// }
 
 	cmds = append(cmds, []string{
 		fmt.Sprintf(
