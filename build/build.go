@@ -77,9 +77,9 @@ func (b *Build) initBuildTask() {
 		"echo \"Commit message is\" `git log --pretty=oneline --abbrev-commit | head -n 1`",
 		"echo \"Current directory is\" `pwd`",
 		// fmt.Sprintf("rm -f %s", b.packFile),
-		fmt.Sprintf("/bin/bash -c %s", b.scriptFile),
+		fmt.Sprintf("cd %s && /bin/bash -c %s", b.local, b.scriptFile),
 		// fmt.Sprintf("rm -f %s", b.scriptFile),
-		fmt.Sprintf("rm -fr %s", b.local),
+		// fmt.Sprintf("rm -fr %s", b.local),
 		"echo \"Compile completed\" `date`",
 	}...)
 	b.task = command.NewTask(cmds, COMMAND_TIMEOUT)
