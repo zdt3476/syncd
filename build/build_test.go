@@ -21,7 +21,7 @@ func TestBuild(t *testing.T) {
 cd ${env_workspace}
 tar --exclude=.git --exclude=.gitignore -zcvf ${env_pack_file} *
 `
-	build, err := NewBuild(repo, local, tmp, packFile, scripts)
+	build, err := NewBuild(repo, local, tmp, packFile, scripts, 1)
 	if err != nil {
 		t.Errorf("create build task failed: %s", err.Error())
 	}

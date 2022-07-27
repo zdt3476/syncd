@@ -336,7 +336,7 @@ func DeployStart(c *gin.Context) {
 			// PackFile:      build.Tar,
 		}
 		for _, srv := range gsrv {
-			dep.AddServer(srv.ID, srv.Ip, srv.SSHPort)
+			dep.AddServer(srv.ID, srv.Ip, srv.SSHPort, id)
 		}
 		deploys = append(deploys, dep)
 

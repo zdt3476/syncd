@@ -20,6 +20,7 @@ type Build struct {
 	tmp        string
 	packFile   string
 	scriptFile string
+	buildId    int
 	task       *command.Task
 	result     *Result
 }
@@ -35,11 +36,12 @@ const (
 	COMMAND_TIMEOUT = 86400
 )
 
-func NewBuild(repo *Repo, local, tmp, packFile, scripts string) (*Build, error) {
+func NewBuild(repo *Repo, local, tmp, packFile, scripts string, buildId int) (*Build, error) {
 	build := &Build{
 		repo:     repo,
 		local:    local,
 		tmp:      tmp,
+		buildId:  buildId,
 		packFile: packFile,
 		result: &Result{
 			status: STATUS_INIT,
@@ -59,7 +61,8 @@ func (b *Build) createScriptFile(scripts string) error {
 		"#!/bin/bash\n\n",
 		"#--------- build scripts env ---------\n",
 		fmt.Sprintf("env_workspace=%s\n", b.local),
-		// fmt.Sprintf("env_pack_file=%s\n", b.packFile),
+		fmt.Sprintf("env_pack_file=%s\n", b.packFile),
+		fmt.Sprintf("env_build_id=%d\n", b.buildId),
 		scripts,
 	)
 	if err := gofile.CreateFile(b.scriptFile, []byte(s), 0744); err != nil {
@@ -74,7 +77,7 @@ func (b *Build) initBuildTask() {
 		"echo \"Now is\" `date`",
 		"echo \"Run user is\" `whoami`",
 		fmt.Sprintf("/bin/bash -c %s", b.scriptFile),
-		fmt.Sprintf("rm -f %s", b.scriptFile),
+		fmt.Sprintf("cd %s && rm -f %s", b.local, b.scriptFile),
 		fmt.Sprintf("rm -fr %s", b.local),
 		"echo \"Compile completed\" `date`",
 	}...)

@@ -15,16 +15,17 @@ const (
 )
 
 type Server struct {
-	ID      int
-	Addr    string
-	User    string
-	Port    int
-	PreCmd  string
-	PostCmd string
-	Key     string
-	// PackFile      string
+	ID            int
+	Addr          string
+	User          string
+	Port          int
+	PreCmd        string
+	PostCmd       string
+	Key           string
+	PackFile      string
 	DeployTmpPath string
 	DeployPath    string
+	BuildId       int
 	task          *command.Task
 	result        *ServerResult
 }
@@ -86,26 +87,26 @@ func (srv *Server) deployCmd() []string {
 	// 	cmds = append(cmds, "echo 'packfile empty' && exit 1")
 	// }
 
-	cmds = append(cmds, []string{
-		fmt.Sprintf(
-			"/usr/bin/env ssh -o StrictHostKeyChecking=no %s %s %s@%s 'mkdir -p %s; mkdir -p %s'",
-			useCustomKey,
-			useSshPort,
-			srv.User,
-			srv.Addr,
-			srv.DeployTmpPath,
-			srv.DeployPath,
-		),
-		// fmt.Sprintf(
-		//     "/usr/bin/env scp -o StrictHostKeyChecking=no -q %s %s %s %s@%s:%s/",
-		//     useCustomKey,
-		//     useScpPort,
-		//     srv.PackFile,
-		//     srv.User,
-		//     srv.Addr,
-		//     srv.DeployTmpPath,
-		// ),
-	}...)
+	// cmds = append(cmds, []string{
+	// 	fmt.Sprintf(
+	// 		"/usr/bin/env ssh -o StrictHostKeyChecking=no %s %s %s@%s 'mkdir -p %s; mkdir -p %s'",
+	// 		useCustomKey,
+	// 		useSshPort,
+	// 		srv.User,
+	// 		srv.Addr,
+	// 		srv.DeployTmpPath,
+	// 		srv.DeployPath,
+	// 	),
+	// 	// fmt.Sprintf(
+	// 	//     "/usr/bin/env scp -o StrictHostKeyChecking=no -q %s %s %s %s@%s:%s/",
+	// 	//     useCustomKey,
+	// 	//     useScpPort,
+	// 	//     srv.PackFile,
+	// 	//     srv.User,
+	// 	//     srv.Addr,
+	// 	//     srv.DeployTmpPath,
+	// 	// ),
+	// }...)
 	if srv.PreCmd != "" {
 		cmds = append(
 			cmds,
@@ -115,7 +116,7 @@ func (srv *Server) deployCmd() []string {
 				useSshPort,
 				srv.User,
 				srv.Addr,
-				srv.PreCmd,
+				fmt.Sprintf("env_build_id=%d\n", srv.BuildId)+srv.PreCmd,
 			),
 		)
 	}

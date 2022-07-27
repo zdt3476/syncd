@@ -27,10 +27,10 @@ type Deploy struct {
 	PostCmd       string
 	DeployPath    string
 	DeployTmpPath string
-	// PackFile      string
-	srvs   []*Server
-	status int
-	wg     sync.WaitGroup
+	PackFile      string
+	srvs          []*Server
+	status        int
+	wg            sync.WaitGroup
 }
 
 type DeployResult struct {
@@ -39,17 +39,18 @@ type DeployResult struct {
 	ServerRest []*ServerResult
 }
 
-func (d *Deploy) AddServer(id int, addr string, port int) {
+func (d *Deploy) AddServer(id int, addr string, port, buildId int) {
 	srv := &Server{
-		ID:      id,
-		Addr:    addr,
-		User:    d.User,
-		Port:    port,
-		PreCmd:  d.PreCmd,
-		PostCmd: d.PostCmd,
-		// PackFile:      d.PackFile,
+		ID:            id,
+		Addr:          addr,
+		User:          d.User,
+		Port:          port,
+		PreCmd:        d.PreCmd,
+		PostCmd:       d.PostCmd,
+		PackFile:      d.PackFile,
 		DeployTmpPath: d.DeployTmpPath,
 		DeployPath:    d.DeployPath,
+		BuildId:       buildId,
 	}
 	NewServer(srv)
 	d.srvs = append(d.srvs, srv)
