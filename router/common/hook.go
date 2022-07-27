@@ -92,7 +92,7 @@ func HookDeploy(applyId int) {
 }
 
 func hookCommandTaskRun(s string, applyId int) {
-	scriptFile := gostring.JoinStrings(syncd.App.LocalTmpSpace, "/", gostring.StrRandom(24), ".sh")
+	scriptFile := gostring.JoinStrings(syncd.App.LocalTmpSpace, "/", gostring.StrRandom(24), ".bash")
 	if err := gofile.CreateFile(scriptFile, []byte(s), 0744); err != nil {
 		syncd.App.Logger.Error("hook script file create failed, err[%s], apply_id[%d]", err.Error(), applyId)
         return

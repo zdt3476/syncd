@@ -35,7 +35,7 @@ func NewCmd(c *Command) (*Command, error) {
 	if c.TerminateChan == nil {
 		c.TerminateChan = make(chan int)
 	}
-	cmd := exec.Command(c.Cmd)
+	cmd := exec.Command("/bin/bash", "-c", c.Cmd)
 	if c.Setpgid {
 		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	}

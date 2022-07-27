@@ -54,7 +54,7 @@ func NewBuild(repo *Repo, local, tmp, packFile, scripts string) (*Build, error) 
 }
 
 func (b *Build) createScriptFile(scripts string) error {
-	b.scriptFile = gostring.JoinStrings(b.tmp, "/", gostring.StrRandom(24), ".sh")
+	b.scriptFile = gostring.JoinStrings(b.tmp, "/", gostring.StrRandom(24), ".bash")
 	s := gostring.JoinStrings(
 		"#!/bin/bash\n\n",
 		"#--------- build scripts env ---------\n",
